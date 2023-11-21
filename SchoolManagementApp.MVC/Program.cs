@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolManagementApp.MVC.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SchoolManagementDbConnection>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolManagementDbConnection") ?? throw new InvalidOperationException("Connection string 'SchoolManagementDbConnection' not found.")));
 
 // Add services to the container.
 var conn = builder.Configuration.GetConnectionString("SchoolManagementDbConnection");

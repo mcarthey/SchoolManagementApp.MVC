@@ -1,0 +1,42 @@
+﻿-- Create Database
+create database SchoolManagementDb
+go
+
+use SchoolManagementDb
+
+create table Students(
+	Id int primary key identity,
+	FirstName nvarchar(50) not null,
+	LastName nvarchar(50) not null,
+	DateOfBirth date,
+)
+
+create table Lecturers(
+	Id int primary key identity,
+	FirstName nvarchar(50) not null,
+	LastName nvarchar(50) not null,
+)
+
+create table Courses(
+	Id int primary key identity,
+	Name nvarchar(50) not null,
+	Code nvarchar(5) unique,
+	Credits int
+)
+
+-- Install Packages
+dotnet add package Microsoft.EntityFrameworkCore --version 7.0.14
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.14
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.14
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.14
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 7.0.11
+
+-- Install Tools
+dotnet tool install --global dotnet-ef --version 7.0
+dotnet tool install --global dotnet-aspnet-codegenerator --version 7.0
+
+-- Scaffold Database
+dotnet ef dbcontext scaffold "Server=(localdb)\MSSQLLocalDB;Database=SchoolManagementDb;Integrated Security=True;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Data --force --no-onconfiguring
+
+-- Scaffold Controllers
+dotnet aspnet-codegenerator controller -name CourseController -m Course -dc SchoolManagementDbConnection --relativeFolderPath Controllers --useDefaultLayout
