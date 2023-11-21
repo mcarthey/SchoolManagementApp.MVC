@@ -2,6 +2,7 @@
 create database SchoolManagementDb
 go
 
+-- Add tables to database
 use SchoolManagementDb
 
 create table Students(
@@ -22,6 +23,23 @@ create table Courses(
 	Name nvarchar(50) not null,
 	Code nvarchar(5) unique,
 	Credits int
+)
+
+-- Add more tables to database
+use SchoolManagementDb
+
+create table Classes (
+	Id int primary key identity,
+	LecturerId int foreign key references Lecturers(Id),
+	CourseId int foreign key references Courses(Id),
+	[Time] time
+)
+
+create table Enrollments (
+	Id int primary key identity,
+	StudentId int foreign key references Students(Id),
+	ClassId int foreign key references Classes(Id),
+	Grade nvarchar(2)
 )
 
 -- Install Packages
