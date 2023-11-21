@@ -39,4 +39,4 @@ dotnet tool install --global dotnet-aspnet-codegenerator --version 7.0
 dotnet ef dbcontext scaffold "Server=(localdb)\MSSQLLocalDB;Database=SchoolManagementDb;Integrated Security=True;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Data --force --no-onconfiguring
 
 -- Scaffold Controllers
-dotnet aspnet-codegenerator controller -name CourseController -m Course -dc SchoolManagementDbConnection --relativeFolderPath Controllers --useDefaultLayout
+dotnet aspnet-codegenerator controller -name CourseController -m Course -dc SchoolManagementDbContext --relativeFolderPath Controllers --useDefaultLayout
